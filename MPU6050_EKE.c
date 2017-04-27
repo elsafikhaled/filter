@@ -5,7 +5,7 @@
  *      Author: El-safi
  */
 #include "MPU6050_EKE.h"
-
+#include <util/delay.h>
 // MPU6050 initialization *******************************************************
 void MPU6050_EKE_init(void){
 //I2C Intialization
@@ -62,12 +62,51 @@ ACC[Z]=ACC[Z]/(double)16384.0;
 }
 
 //*******************************************************************************************************
-void MPU6050_Angle_GYRO(double GYRO_XYZ[3],U8_t *GyAngX,U8_t *GyAngY,U8_t *GyAngZ){
+float MPU6050_Callib_GYRO(void){
+	float val=0;
+	int index=0;
+	double GYRO_XYZ[3],Accel_XYZ[3];
+	double GyroCallx=0;
+
+	for(index=0;index<=5000;index++){
+	   MPU6050_Read_data(Accel_XYZ,GYRO_XYZ);
+	   GyroCallx +=GYRO_XYZ[0];
+	   _delay_ms(1);//get bias after 5 second
+	}
+     val=GyroCallx/5000;
 
 
-
-
+	return val;
 }
+
+//********************************************************************************************************
+float MPU6050_AngleX_ACC(double Accel_XYZ[3]){
+	double Xangle=0;
+
+   //[Mathematics] tan-1(y/x) = atan2(y,x) [In C programming]
+	Xangle=(double)atan2(Accel_XYZ[0],Accel_XYZ[2]);
+
+	Xangle*=(double)57.2957795;
+
+    return Xangle;
+}
+
+//**********************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

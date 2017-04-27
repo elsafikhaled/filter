@@ -9,7 +9,7 @@
 #define MPU6050_EKE_H_
 #include "EKE_I2C.h"
 #include "MPU6050CONFIG.h"
-
+#include <math.h>
 
 
 void MPU6050_EKE_init(void);
@@ -34,38 +34,27 @@ void MPU6050_Read_data(double ACC[3],double GYRO[3]); //Get readings from MPU605
  * notes        : pass 2  arrays of 3 members for GYRO and accelerometer .
  * ****************************************************************************************************/
 
-void MPU6050_Angle_GYRO(double GYRO_XYZ[3],U8_t *GyAngX,U8_t *GyAngY,U8_t *GyAngZ);
+float MPU6050_Callib_GYRO(void);
 /* ****************************************************************************************************
- * Prototype    : void MPU6050_Angle_GYRO(double GYRO_XYZ[3],U8_t *GyAngX,U8_t *GyAngY,U8_t *GyAngZ);
+ * Prototype    : float MPU6050_Callib_GYRO(void);
  *
- * return       : void
+ * return       : 4 byte :
  *
- * description  : get 3 angles of GYRO on X,Y,Z AXIS.
+ * description  : callibrated value on X-axis
+ *
+ * notes        : returned val passed to kalman function as bias argument
+ * *****************************************************************************************************/
+
+float MPU6050_AngleX_ACC(double Accel_XYZ[3]);
+/* ****************************************************************************************************
+ * Prototype    : float MPU6050_AngleX_ACC(double Accel_XYZ[0],double Accel_XYZ[2] )
+ *
+ * return       : 4 byte :: angle
+ *
+ * description  : get  angle of accelerometer on X AXIS.
  *
  * notes        : pass 3  addresses of variables that pointer to U8_t point to them.
  * *****************************************************************************************************/
 
-void MPU6050_Angle_ACC(double ACC_XYZ[3],U8_t *AccAngX,U8_t *AccAngY,U8_t *AccAngZ);
-/* ****************************************************************************************************
- * Prototype    : void MPU6050_Angle_ACC(double ACC_XYZ[3],U8_t *AccAngX,U8_t *AccAngY,U8_t *AccAngZ);
- *
- * return       : void
- *
- * description  : get 3 angles of accelerometer on X,Y,Z AXIS.
- *
- * notes        : pass 3  addresses of variables that pointer to U8_t point to them.
- * *****************************************************************************************************/
-void MPU6050_Pitch_Roll(U8_t *pitch,U8_t *Roll);
-/* ****************************************************************************************************
- * Prototype    : void MPU6050_Pitch_Roll(U8_t *pitch,U8_t *Roll);
- *
- * return       : void
- *
- * description  : get pitch and roll angle  on X,Y AXIS and neglect yaw angle around Z axis.
- *                according this equation::
- *                " angle = angle_gyro * 0.9996 + angle__acc * 0.0004"
- *
- * notes        : pass 2  addresses of variables that pointer to U8_t point to them.
- * *****************************************************************************************************/
 
 #endif /* MPU6050_EKE_H_ */

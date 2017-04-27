@@ -9,8 +9,8 @@
 #define KALMANFILTERCFG_H_
 
 //global data types for the ESTIMATE angle by GyroRate
-  float Bias=0.0f;
-  float dt=0.0;   //acess by user
+ // float Bias=0.0f;
+  float dt=1.0f;   //acess by user
   float GyroDiff=0.0f;
   float EstAngleGyro_P=0.0f;
   float EstAngleGyro_Pr=0.0f;

@@ -7,7 +7,6 @@
 
 #ifndef KALMANFILTER_H_
 #define KALMANFILTER_H_
-#include "KalmanFilterCfg.h"
 /*  **************************************  Kalman Filter Algorithm   ********************************************************
  *
  *
@@ -84,13 +83,14 @@
  *______________________________________________________________________________________________________________________________
  * ***************************************************************************************************************************/
   //Functions prototypes:-
-                         float KalmanFilter_CurrentAngle(signed char GyroRate,signed char AccelAngle);
+
+      float KalmanFilter_CurrentAngle(double GyroRate,double AccelAngle,signed char Bias );
 
 /*
  *
  *              Function   ::    void KalmanFilter_CurrentAngle(signed char GyroRate,signed char AccelAngle);
  *
- *              Parameters ::    signed char GyroRate,signed char AccelAngle
+ *              Parameters ::    signed char GyroRate,signed char AccelAngle ,Bias : callibration of gyro
  *
  *              Return     ::    ANGLE : float
  *

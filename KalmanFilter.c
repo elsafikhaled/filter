@@ -5,11 +5,13 @@
  *      Author: El-safi
  */
 #include "KalmanFilter.h"
+#include "KalmanFilterCfg.h"
 
 
 
 
-float KalmanFilter_CurrentAngle(signed char GyroRate,signed char AccelAngle){
+
+float KalmanFilter_CurrentAngle(double GyroRate,double AccelAngle,signed char Bias ){
 
        float term=0.0f;
 	  /* calculate the ESTIMATE angle by GyroRate  */
